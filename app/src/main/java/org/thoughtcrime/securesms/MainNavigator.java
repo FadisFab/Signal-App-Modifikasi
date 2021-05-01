@@ -40,8 +40,8 @@ public class MainNavigator {
     }
 
     getFragmentManager().beginTransaction()
-                        .add(R.id.fragment_container, ConversationListFragment.newInstance())
-                        .commit();
+            .add(R.id.fragment_container, ConversationListFragment.newInstance())
+            .commit();
   }
 
   /**
@@ -58,11 +58,16 @@ public class MainNavigator {
     return false;
   }
 
-  public void goToConversation(@NonNull RecipientId recipientId, long threadId, int distributionType, int startingPosition) {
+  public void goToConversation(
+          @NonNull RecipientId recipientId,
+          long threadId,
+          int distributionType,
+          int startingPosition)
+  {
     Intent intent = ConversationIntents.createBuilder(activity, recipientId, threadId)
-                                       .withDistributionType(distributionType)
-                                       .withStartingPosition(startingPosition)
-                                       .build();
+            .withDistributionType(distributionType)
+            .withStartingPosition(startingPosition)
+            .build();
 
     activity.startActivity(intent);
     activity.overridePendingTransition(R.anim.slide_from_end, R.anim.fade_scale_out);
@@ -75,10 +80,10 @@ public class MainNavigator {
 
   public void goToArchiveList() {
     getFragmentManager().beginTransaction()
-                        .setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start, R.anim.slide_from_start, R.anim.slide_to_end)
-                        .replace(R.id.fragment_container, ConversationListArchiveFragment.newInstance())
-                        .addToBackStack(null)
-                        .commit();
+            .setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start, R.anim.slide_from_start, R.anim.slide_to_end)
+            .replace(R.id.fragment_container, ConversationListArchiveFragment.newInstance())
+            .addToBackStack(null)
+            .commit();
   }
 
   public void goToGroupCreation() {

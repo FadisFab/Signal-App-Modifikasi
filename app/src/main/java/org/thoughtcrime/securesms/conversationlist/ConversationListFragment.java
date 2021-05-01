@@ -21,6 +21,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -347,7 +348,6 @@ public class ConversationListFragment extends MainFragment implements ActionMode
       searchToolbar.get().collapse();
       return true;
     }
-
     return false;
   }
 

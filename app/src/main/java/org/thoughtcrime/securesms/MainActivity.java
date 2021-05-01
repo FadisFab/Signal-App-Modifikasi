@@ -1,13 +1,19 @@
 package org.thoughtcrime.securesms;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import org.thoughtcrime.securesms.devicetransfer.olddevice.OldDeviceTransferLockedDialog;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
@@ -28,8 +34,8 @@ public class MainActivity extends PassphraseRequiredActivity {
     Intent intent = new Intent(context, MainActivity.class);
 
     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                    Intent.FLAG_ACTIVITY_NEW_TASK  |
-                    Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            Intent.FLAG_ACTIVITY_NEW_TASK  |
+            Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
     return intent;
   }
@@ -51,8 +57,8 @@ public class MainActivity extends PassphraseRequiredActivity {
   @Override
   public Intent getIntent() {
     return super.getIntent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                                      Intent.FLAG_ACTIVITY_NEW_TASK  |
-                                      Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            Intent.FLAG_ACTIVITY_NEW_TASK  |
+            Intent.FLAG_ACTIVITY_SINGLE_TOP);
   }
 
   @Override
@@ -80,7 +86,23 @@ public class MainActivity extends PassphraseRequiredActivity {
   @Override
   public void onBackPressed() {
     if (!navigator.onBackPressed()) {
-      super.onBackPressed();
+      new AlertDialog.Builder(this)
+              .setIcon(R.drawable.ic_signal_logo_large)
+              .setTitle(R.string.app_name)
+              .setMessage("Proceed To Close The Signal Application?")
+              .setPositiveButton("Close", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                  finish();
+                }
+              })
+              .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                  dialog.cancel();
+                }
+              })
+              .show();
     }
   }
 
